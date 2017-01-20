@@ -1,0 +1,2141 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "3.0.0",
+        "title": "Kyld",
+        "description": "NCQ Portal API"
+    },
+    "host": "localhost:9000",
+    "basePath": "/1",
+    "schemes": [
+        "http"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/shops": {
+            "x-swagger-router-controller": "Default",
+            "get": {
+                "operationId": "v1ShopsGET",
+                "summary": "Return all shop information for all shops",
+                "parameters": [
+                    {
+                        "name": "autodetect",
+                        "in": "query",
+                        "type": "boolean",
+                        "description": "Filter suitable shops using request IP"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return an object containing an array of every shop information.\n",
+                        "schema": {
+                            "$ref": "#/definitions/Shops"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "shops": [
+                                    {
+                                        "id": "ES",
+                                        "name": "España",
+                                        "area": "EUROPA",
+                                        "locales": [
+                                            "es_ES",
+                                            "ca_ES"
+                                        ],
+                                        "copyright": "© Nicequest desde 2005 en España",
+                                        "support-url": "https://es.help.nicequest.com",
+                                        "support-phone-number": "902 222 410"
+                                    },
+                                    {
+                                        "id": "BR",
+                                        "name": "Brazil",
+                                        "area": "AMÉRICA DEL SUR",
+                                        "locales": [
+                                            "pt_BR"
+                                        ],
+                                        "copyright": "© Nicequest desde 2010 no Brasi",
+                                        "support-url": "https://br.help.nicequest.com",
+                                        "support-phone-number": "+55 (11) 3067-6110"
+                                    },
+                                    {
+                                        "id": "AR",
+                                        "name": "Argentina",
+                                        "area": "AMÉRICA DEL SUR",
+                                        "locales": [
+                                            "es_AR"
+                                        ],
+                                        "copyright": "© Nicequest desde 2005 en Argentina",
+                                        "support-url": "https://ar.help.nicequest.com",
+                                        "support-phone-number": "00 56 (2)2348.6372"
+                                    },
+                                    {
+                                        "id": "PT",
+                                        "name": "Portugal",
+                                        "area": "EUROPA",
+                                        "locales": [
+                                            "pt_PT"
+                                        ],
+                                        "copyright": "© Nicequest desde 2005 em Portugal",
+                                        "support-url": "https://pt.help.nicequest.com",
+                                        "support-phone-number": "(+351) 308804825"
+                                    },
+                                    {
+                                        "id": "US",
+                                        "name": "United States",
+                                        "area": "AMÉRICA DEL NORTE",
+                                        "locales": [
+                                            "en_US",
+                                            "es_ES"
+                                        ],
+                                        "copyright": "© Nicequest desde 2005 en Estados Unidos",
+                                        "support-url": "https://latam.help.nicequest.com",
+                                        "support-phone-number": "52 55 11078629"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error fetching shops information.\n"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "x-swagger-router-controller": "Default",
+            "get": {
+                "operationId": "v1CategoriesGET",
+                "summary": "Return all categories information for all categories",
+                "parameters": [
+                    {
+                        "name": "shop",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Shop unique identifier",
+                        "required": true,
+                        "default": "ES"
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "type": "string",
+                        "description": "This parameter is used to indicate in which language must be the recommendations returned to the client.",
+                        "required": true,
+                        "default": "es_ES"
+                    },
+                    {
+                        "name": "expanded",
+                        "in": "query",
+                        "type": "boolean",
+                        "required": true,
+                        "description": "A boolean value indicating if the response nested values must be inline or an url to the resource.",
+                        "default": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return an object containing incentives' categories and subcategories.\n",
+                        "schema": {
+                            "$ref": "#/definitions/Categories"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "categories": [
+                                    {
+                                        "id": "aba007c1dd4544c1",
+                                        "name": "Hogar",
+                                        "icon": "icon-home",
+                                        "category-type": "GIFT",
+                                        "subcategories": [
+                                            {
+                                                "id": "dfg007c1dd4544c2",
+                                                "name": "Cocina y Menaje",
+                                                "parent": {
+                                                    "id": "aba007c1dd4544c1",
+                                                    "name": "Hogar"
+                                                }
+                                            },
+                                            {
+                                                "id": "rty007c1dd4544c3",
+                                                "name": "Escritorio",
+                                                "parent": {
+                                                    "id": "aba007c1dd4544c1",
+                                                    "name": "Hogar"
+                                                }
+                                            },
+                                            {
+                                                "id": "vbn007c1dd4544f4",
+                                                "name": "Decoración",
+                                                "parent": {
+                                                    "id": "aba007c1dd4544c1",
+                                                    "name": "Hogar"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "yui007c1dd4544c5",
+                                        "name": "Moda y Belleza",
+                                        "icon": "icon-style",
+                                        "category-type": "GIFT",
+                                        "subcategories": [
+                                            {
+                                                "id": "10306087bb931f44",
+                                                "name": "Perfumería",
+                                                "parent": {
+                                                    "id": "yui007c1dd4544c5",
+                                                    "name": "Moda y Belleza"
+                                                }
+                                            },
+                                            {
+                                                "id": "77b02b5550b500ff",
+                                                "name": "Cosmética",
+                                                "parent": {
+                                                    "id": "yui007c1dd4544c5",
+                                                    "name": "Moda y Belleza"
+                                                }
+                                            },
+                                            {
+                                                "id": "88b02b5550b500gg",
+                                                "name": "Moda",
+                                                "parent": {
+                                                    "id": "yui007c1dd4544c5",
+                                                    "name": "Moda y Belleza"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "ccc007c1dd4544c6",
+                                        "name": "Cultura",
+                                        "icon": "icon-culture",
+                                        "category-type": "GIFT"
+                                    },
+                                    {
+                                        "id": "xza007c1dd4544c7",
+                                        "name": "Electrónica",
+                                        "icon": "icon-electronic",
+                                        "category-type": "GIFT",
+                                        "subcategories": [
+                                            {
+                                                "id": "jjj207c1dd4544c7",
+                                                "name": "videojuegos",
+                                                "parent": {
+                                                    "id": "xza007c1dd4544c7",
+                                                    "name": "Electrónica"
+                                                }
+                                            },
+                                            {
+                                                "id": "yuj207c1dd4544c7",
+                                                "name": "Informática",
+                                                "parent": {
+                                                    "id": "xza007c1dd4544c7",
+                                                    "name": "Electrónica"
+                                                }
+                                            },
+                                            {
+                                                "id": "sfh247c1dd4544c7",
+                                                "name": "Telefonía",
+                                                "parent": {
+                                                    "id": "xza007c1dd4544c7",
+                                                    "name": "Electrónica"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "kjh007c1dd4544c8",
+                                        "name": "Entretenimiento",
+                                        "icon": "icon-leisure",
+                                        "category-type": "GIFT"
+                                    },
+                                    {
+                                        "id": "asd007c1dd4544c9",
+                                        "name": "Donativos",
+                                        "icon": "icon-gift-light",
+                                        "category-type": "DONATION"
+                                    },
+                                    {
+                                        "id": "www007c1dd4544w7",
+                                        "name": "Sorteos",
+                                        "icon": "icon-gift-light",
+                                        "category-type": "DRAW"
+                                    },
+                                    {
+                                        "id": "xcv007c1dd4544g8",
+                                        "name": "Mascotas",
+                                        "icon": "icon-pet",
+                                        "category-type": "GIFT"
+                                    },
+                                    {
+                                        "id": "ddd017c1dd4544g8",
+                                        "name": "Gatronomía",
+                                        "icon": "icon-eat",
+                                        "category-type": "GIFT",
+                                        "subcategories": [
+                                            {
+                                                "id": "khy017c1dd4544g8",
+                                                "name": "Bodega",
+                                                "parent": {
+                                                    "id": "ddd017c1dd4544g8",
+                                                    "name": "Gatronomía"
+                                                }
+                                            },
+                                            {
+                                                "id": "lki017c1dd4544g8",
+                                                "name": "Delicatessen",
+                                                "parent": {
+                                                    "id": "ddd017c1dd4544g8",
+                                                    "name": "Gatronomía"
+                                                }
+                                            },
+                                            {
+                                                "id": "zxc017c1dd4544g8",
+                                                "name": "Aperitivos",
+                                                "parent": {
+                                                    "id": "ddd017c1dd4544g8",
+                                                    "name": "Gatronomía"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "rty037c1dd4544g8",
+                                        "name": "Electrodomésticos",
+                                        "icon": "icon-appliance",
+                                        "category-type": "GIFT"
+                                    },
+                                    {
+                                        "id": "iuo967c1dd4544g8",
+                                        "name": "Cursos online",
+                                        "icon": "icon-course",
+                                        "category-type": "GIFT"
+                                    },
+                                    {
+                                        "id": "qwe054c1dd4544g8",
+                                        "name": "Tarjetas regalo",
+                                        "icon": "icon-card",
+                                        "category-type": "GIFT"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Return a bad request error in case of any query parameter is missed\nor a type mismatch is detected (for example expanded parameter value\nis distinct to true | false).\n"
+                    },
+                    "404": {
+                        "description": "Return no data and 404 when no locale found matching the locale\nand/or shop parameters sent.\n"
+                    },
+                    "500": {
+                        "description": "Error fetching categories information.\n"
+                    },
+                    "501": {
+                        "description": "Not implemented.\n"
+                    },
+                    "503": {
+                        "description": "Service temporarily unavailable.\n"
+                    }
+                }
+            }
+        },
+        "/categories/{category}/incentives": {
+            "x-swagger-router-controller": "Default",
+            "get": {
+                "operationId": "v1CategoriesCategoryIncentivesGET",
+                "summary": "Return the category incentives",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Category unique identifier",
+                        "required": true,
+                        "default": "8234475c1326cdfd"
+                    },
+                    {
+                        "name": "shop",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Shop unique identifier",
+                        "required": true,
+                        "default": "ES"
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "type": "string",
+                        "description": "This parameter is used to indicate in which language must be the recommendations returned to the client.",
+                        "required": true,
+                        "default": "es_ES"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return an object containing an array of every shop information.\n",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryIncentives"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "incentives": [
+                                    {
+                                        "id": "2B2B2B2B",
+                                        "name": "Minipimer",
+                                        "points": 15,
+                                        "image-thumbnail": "https://s3.amazonaws.com/greig-ppi/trogen/images/71f29803-83c8-43fc-a3d8-ada1f86ae1a3-TH.png",
+                                        "brief-description": "This is the short description",
+                                        "premium": false,
+                                        "links": [
+                                            {
+                                                "href": "/incentives/2B2B2B2B",
+                                                "rel": "detail"
+                                            },
+                                            {
+                                                "href": "/categories/aba007c1dd4544c1",
+                                                "rel": "category"
+                                            },
+                                            {
+                                                "href": "/categories/xza007c1dd4544c7",
+                                                "rel": "category"
+                                            },
+                                            {
+                                                "href": "/categories/aba007c1dd4544c1/subcategories/dfg007c1dd4544c2",
+                                                "rel": "subcategory"
+                                            },
+                                            {
+                                                "href": "/categories/xza007c1dd4544c7/subcategories/yuj207c1dd4544c7",
+                                                "rel": "subcategory"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "3C3C3C3C",
+                                        "name": "Secador de pelo",
+                                        "points": 1500,
+                                        "image-thumbnail": "https://s3.amazonaws.com/greig-ppi/trogen/images/71f29803-83c8-43fc-a3d8-ada1f86ae1a3-TH.png",
+                                        "brief-description": "This is another the short description",
+                                        "premium": true,
+                                        "links": [
+                                            {
+                                                "href": "/incentives/3C3C3C3C",
+                                                "rel": "detail"
+                                            },
+                                            {
+                                                "href": "/categories/aba007c1dd4544c1",
+                                                "rel": "category"
+                                            },
+                                            {
+                                                "href": "/categories/aba007c1dd4544c1/subcategories/dfg007c1dd4544c2",
+                                                "rel": "subcategory"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Return a bad request error in case of any query parameter is missed or a type mismatch is detected.\n"
+                    },
+                    "404": {
+                        "description": "Return no data and 404 when no locale found matching the locale and/or category parameters sent.\n"
+                    },
+                    "409": {
+                        "description": "A conflict has occurred, this panelist cannot perform this action.\n"
+                    },
+                    "500": {
+                        "description": "Error fetching category information.\n"
+                    },
+                    "501": {
+                        "description": "Not implemented.\n"
+                    },
+                    "503": {
+                        "description": "Service temporarily unavailable.\n"
+                    }
+                }
+            }
+        },
+        "/panelists/{panelist}/": {
+            "x-swagger-router-controller": "Default",
+            "get": {
+                "operationId": "v1PanelistsGet",
+                "summary": "Return the minimum information of the given panelist",
+                "parameters": [
+                    {
+                        "name": "panelist",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Panelist unique identifier",
+                        "required": true,
+                        "default": "11c340d07469d25d"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return all the information about a panelist.\n",
+                        "schema": {
+                            "$ref": "#/definitions/Panelist"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "id": "2B2B2B00",
+                                "name": "Bob",
+                                "gender": "MALE",
+                                "points": 8000,
+                                "locale": "es_ES",
+                                "shop": "ES",
+                                "number-participations": 2,
+                                "situations": [
+                                    "ISO_SANCTIONED"
+                                ],
+                                "ad-tracking-accepted": true,
+                                "membership": "STANDARD",
+                                "links": [
+                                    {
+                                        "href": "/panelists/2B2B2B00/pii",
+                                        "rel": "pii"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.\n"
+                    },
+                    "403": {
+                        "description": "Unauthorized.\n"
+                    },
+                    "404": {
+                        "description": "Return no data and 404 when the panelist is not found.\n"
+                    },
+                    "500": {
+                        "description": "Error fetching panelist information.\n"
+                    },
+                    "503": {
+                        "description": "Service temporarily unavailable.\n"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Shops": {
+            "type": "object",
+            "required": [
+                "shops"
+            ],
+            "properties": {
+                "shops": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Shop"
+                    }
+                }
+            }
+        },
+        "Shop": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "area",
+                "locales",
+                "copyright",
+                "support-url",
+                "support-phone-number"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "area": {
+                    "type": "string"
+                },
+                "locales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Locale"
+                    }
+                },
+                "copyright": {
+                    "type": "string"
+                },
+                "support-url": {
+                    "type": "string"
+                },
+                "support-phone-number": {
+                    "type": "string"
+                }
+            }
+        },
+        "Categories": {
+            "type": "object",
+            "required": [
+                "categories"
+            ],
+            "properties": {
+                "categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Category"
+                    }
+                }
+            }
+        },
+        "Category": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "icon",
+                "category-type"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "category-type": {
+                    "type": "string",
+                    "enum": [
+                        "GIFT",
+                        "DRAW",
+                        "DONATION"
+                    ]
+                },
+                "subcategories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Subcategory"
+                    }
+                }
+            }
+        },
+        "CategoryMini": {
+            "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryIncentives": {
+            "type": "object",
+            "required": [
+                "incentives"
+            ],
+            "properties": {
+                "incentives": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IncentiveMini"
+                    }
+                }
+            }
+        },
+        "Subcategory": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "parent"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parent": {
+                    "$ref": "#/definitions/CategoryMini"
+                }
+            }
+        },
+        "History": {
+            "type": "object",
+            "required": [
+                "events"
+            ],
+            "properties": {
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Event"
+                    }
+                }
+            }
+        },
+        "Event": {
+            "type": "object",
+            "required": [
+                "date",
+                "points",
+                "type"
+            ],
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "PARTICIPATION",
+                        "REDEEM",
+                        "CANCELLATION",
+                        "ADJUSTMENT",
+                        "WELCOME",
+                        "PREMIUM_WELCOME",
+                        "OTHER"
+                    ]
+                },
+                "participation-data": {
+                    "$ref": "#/definitions/ParticipationData"
+                },
+                "redeem-data": {
+                    "$ref": "#/definitions/RedeemData"
+                },
+                "cancellation-data": {
+                    "$ref": "#/definitions/CancellationData"
+                },
+                "adjustment-data": {
+                    "$ref": "#/definitions/AdjustmentData"
+                },
+                "welcome-data": {
+                    "$ref": "#/definitions/WelcomeData"
+                },
+                "premium-welcome-data": {
+                    "$ref": "#/definitions/PremiumWelcomeData"
+                },
+                "other-data": {
+                    "$ref": "#/definitions/OtherData"
+                }
+            }
+        },
+        "RedeemData": {
+            "type": "object",
+            "required": [
+                "id",
+                "order-number",
+                "message",
+                "links"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "order-number": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "CancellationData": {
+            "type": "object",
+            "required": [
+                "id",
+                "order-number",
+                "message",
+                "links"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "order-number": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "ParticipationData": {
+            "type": "object",
+            "required": [
+                "message",
+                "reward"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "reward": {
+                    "$ref": "#/definitions/Reward"
+                }
+            }
+        },
+        "WelcomeData": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "PremiumWelcomeData": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "AdjustmentData": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "OtherData": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Invitations": {
+            "type": "object",
+            "required": [
+                "invitations"
+            ],
+            "properties": {
+                "invitations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Invitation"
+                    }
+                }
+            }
+        },
+        "Invitation": {
+            "type": "object",
+            "required": [
+                "name",
+                "links"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "mobile-enabled": {
+                    "$ref": "#/definitions/MobileCharacteristics"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "MobileCharacteristics": {
+            "type": "object",
+            "required": [
+                "optimized"
+            ],
+            "properties": {
+                "optimized": {
+                    "type": "boolean"
+                },
+                "pixels": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Incentives": {
+            "type": "object",
+            "required": [
+                "incentives"
+            ],
+            "properties": {
+                "incentives": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IncentiveMini"
+                    }
+                }
+            }
+        },
+        "Incentive": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "brief-description",
+                "full-description",
+                "points",
+                "class",
+                "type",
+                "status",
+                "has-stock",
+                "premium"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "brief-description": {
+                    "type": "string"
+                },
+                "full-description": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "class": {
+                    "type": "string",
+                    "enum": [
+                        "GIFT",
+                        "DRAW",
+                        "DONATION"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "PHYSICAL",
+                        "VIRTUAL"
+                    ]
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "ACTIVE",
+                        "INACTIVE",
+                        "DISCONTINUED"
+                    ]
+                },
+                "has-stock": {
+                    "type": "boolean"
+                },
+                "premium": {
+                    "type": "boolean"
+                },
+                "restrictions": {
+                    "$ref": "#/definitions/Restrictions"
+                },
+                "more-info": {
+                    "type": "string"
+                },
+                "donation-detail": {
+                    "$ref": "#/definitions/DonationDetail"
+                },
+                "draw-detail": {
+                    "$ref": "#/definitions/DrawDetail"
+                },
+                "redeem-options": {
+                    "$ref": "#/definitions/RedeemOptions"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "RedeemOptions": {
+            "type": "object",
+            "properties": {
+                "redeem-selector": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RedeemSelector"
+                    }
+                },
+                "redeem-cellphone-number": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RedeemCellphoneNumber"
+                    }
+                }
+            }
+        },
+        "RedeemOptionsValues": {
+            "type": "object",
+            "properties": {
+                "redeem-selector": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RedeemSelectorValue"
+                    }
+                },
+                "redeem-cellphone-number": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RedeemCellphoneNumberValue"
+                    }
+                }
+            }
+        },
+        "RedeemCellphoneNumber": {
+            "type": "object",
+            "required": [
+                "id",
+                "title",
+                "mandatory"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "mandatory": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "RedeemCellphoneNumberValue": {
+            "type": "object",
+            "required": [
+                "id",
+                "value"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "RedeemSelector": {
+            "type": "object",
+            "required": [
+                "id",
+                "title",
+                "mandatory",
+                "options"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "mandatory": {
+                    "type": "boolean"
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "RedeemSelectorValue": {
+            "type": "object",
+            "required": [
+                "id",
+                "value"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "Redeem": {
+            "type": "object",
+            "required": [
+                "incentive",
+                "units"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "incentive": {
+                    "type": "string"
+                },
+                "units": {
+                    "type": "integer"
+                },
+                "redeem-options-values": {
+                    "$ref": "#/definitions/RedeemOptionsValues"
+                },
+                "default-address": {
+                    "type": "boolean"
+                },
+                "shipping-contact": {
+                    "$ref": "#/definitions/ShippingContact"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "Restrictions": {
+            "type": "object",
+            "required": [
+                "only-once-redeem"
+            ],
+            "properties": {
+                "max-units-redeem": {
+                    "type": "integer"
+                },
+                "only-once-redeem": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "DonationDetail": {
+            "type": "object",
+            "required": [
+                "remote-provider",
+                "remote-provider-reachable",
+                "initial-stock",
+                "available-stock"
+            ],
+            "properties": {
+                "remote-provider": {
+                    "type": "string"
+                },
+                "remote-provider-reachable": {
+                    "type": "boolean"
+                },
+                "initial-stock": {
+                    "type": "integer"
+                },
+                "available-stock": {
+                    "type": "integer"
+                }
+            }
+        },
+        "DrawDetail": {
+            "type": "object",
+            "required": [
+                "draw-rules"
+            ],
+            "properties": {
+                "draw-date": {
+                    "type": "string"
+                },
+                "draw-rules": {
+                    "type": "string"
+                }
+            }
+        },
+        "IncentiveMini": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "points",
+                "image-thumbnail",
+                "brief-description",
+                "premium"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "image-thumbnail": {
+                    "type": "string"
+                },
+                "brief-description": {
+                    "type": "string"
+                },
+                "premium": {
+                    "type": "boolean"
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "Credentials": {
+            "type": "object",
+            "required": [
+                "login",
+                "password"
+            ],
+            "properties": {
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "CurrentAndNewCredentials": {
+            "type": "object",
+            "required": [
+                "current",
+                "set-to"
+            ],
+            "properties": {
+                "current": {
+                    "type": "string"
+                },
+                "set-to": {
+                    "type": "string"
+                }
+            }
+        },
+        "Token": {
+            "type": "object",
+            "required": [
+                "value",
+                "partial"
+            ],
+            "properties": {
+                "value": {
+                    "type": "string"
+                },
+                "partial": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "PanelistLogin": {
+            "type": "object",
+            "required": [
+                "login"
+            ],
+            "properties": {
+                "login": {
+                    "type": "string"
+                }
+            }
+        },
+        "Unsubscription": {
+            "type": "object",
+            "required": [
+                "reason"
+            ],
+            "properties": {
+                "reason": {
+                    "type": "string"
+                }
+            }
+        },
+        "IsoData": {
+            "type": "object",
+            "required": [
+                "gender",
+                "birthDate"
+            ],
+            "properties": {
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "MALE",
+                        "FEMALE"
+                    ]
+                },
+                "birthDate": {
+                    "type": "number"
+                }
+            }
+        },
+        "ProjectParticipation": {
+            "type": "object",
+            "required": [
+                "sanctioned",
+                "reward"
+            ],
+            "properties": {
+                "sanctioned": {
+                    "type": "boolean"
+                },
+                "reward": {
+                    "$ref": "#/definitions/Reward"
+                }
+            }
+        },
+        "Reward": {
+            "type": "object",
+            "required": [
+                "standard"
+            ],
+            "properties": {
+                "standard": {
+                    "type": "integer"
+                },
+                "premium": {
+                    "type": "integer"
+                }
+            }
+        },
+        "PanelistId": {
+            "type": "object",
+            "required": [
+                "panelistId"
+            ],
+            "properties": {
+                "panelistId": {
+                    "type": "string"
+                }
+            }
+        },
+        "Panelist": {
+            "type": "object",
+            "required": [
+                "id",
+                "points",
+                "locale",
+                "shop",
+                "number-participations",
+                "ad-tracking-accepted",
+                "membership"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "MALE",
+                        "FEMALE"
+                    ]
+                },
+                "points": {
+                    "type": "integer"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "shop": {
+                    "type": "string"
+                },
+                "number-participations": {
+                    "type": "integer"
+                },
+                "situations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Situation"
+                    }
+                },
+                "ad-tracking-accepted": {
+                    "type": "boolean"
+                },
+                "membership": {
+                    "type": "string",
+                    "enum": [
+                        "STANDARD",
+                        "PREMIUM_CANDIDATE",
+                        "PREMIUM"
+                    ]
+                },
+                "links": {
+                    "$ref": "#/definitions/Links"
+                }
+            }
+        },
+        "Situation": {
+            "type": "string",
+            "enum": [
+                "FROZEN",
+                "ISO_SANCTIONED",
+                "MINOR_VALIDATION_PENDING"
+            ]
+        },
+        "PII": {
+            "type": "object",
+            "required": [
+                "name",
+                "surname1",
+                "email",
+                "region-levels"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "surname1": {
+                    "type": "string"
+                },
+                "surname2": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "region-levels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RegionLevel"
+                    }
+                }
+            }
+        },
+        "Locale": {
+            "type": "string",
+            "enum": [
+                "pt_BR",
+                "es_CO",
+                "es_ES",
+                "es_MX",
+                "es_AR",
+                "es_CL",
+                "es_PE",
+                "es_EC",
+                "es_PR",
+                "es_GT",
+                "es_DO",
+                "pt_PT",
+                "es_VE",
+                "es_CR",
+                "en_US",
+                "es_UY",
+                "es_BO",
+                "es_HN",
+                "es_PY",
+                "es_SV",
+                "es_NI",
+                "es_PA"
+            ]
+        },
+        "Links": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/Link"
+            }
+        },
+        "Link": {
+            "type": "object",
+            "required": [
+                "href",
+                "rel"
+            ],
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "rel": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "RegionsSchema": {
+            "type": "object",
+            "required": [
+                "schema"
+            ],
+            "properties": {
+                "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RegionsSchemaItem"
+                    }
+                }
+            }
+        },
+        "RegionsSchemaItem": {
+            "type": "object",
+            "required": [
+                "labelFallback",
+                "mandatory",
+                "input"
+            ],
+            "properties": {
+                "labelFallback": {
+                    "type": "string"
+                },
+                "mandatory": {
+                    "type": "boolean"
+                },
+                "input": {
+                    "$ref": "#/definitions/RegionInputMode"
+                }
+            }
+        },
+        "RegionInputMode": {
+            "type": "string",
+            "enum": [
+                "FREE",
+                "LIST",
+                "BOTH"
+            ]
+        },
+        "Regions": {
+            "type": "object",
+            "required": [
+                "regions"
+            ],
+            "properties": {
+                "level": {
+                    "type": "integer"
+                },
+                "parentId": {
+                    "type": "string"
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Region"
+                    }
+                }
+            }
+        },
+        "Region": {
+            "type": "object",
+            "required": [
+                "id",
+                "label"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            }
+        },
+        "NicestatsConfig": {
+            "type": "object",
+            "required": [
+                "pointsPerActiveDevice",
+                "maxActiveDevicesForIncentivisation",
+                "inactiveDeviceDaysThreshold",
+                "activeDeviceIndicatorOkPercentage",
+                "activeDeviceIndicatorKoPercentage",
+                "pointsForBecomingActive"
+            ],
+            "properties": {
+                "pointsPerActiveDevice": {
+                    "type": "integer"
+                },
+                "maxActiveDevicesForIncentivisation": {
+                    "type": "integer"
+                },
+                "inactiveDeviceDaysThreshold": {
+                    "type": "integer"
+                },
+                "activeDeviceIndicatorOkPercentage": {
+                    "type": "integer"
+                },
+                "activeDeviceIndicatorKoPercentage": {
+                    "type": "integer"
+                },
+                "pointsForBecomingActive": {
+                    "type": "integer"
+                }
+            }
+        },
+        "NicestatsStatus": {
+            "type": "object",
+            "required": [
+                "publicId",
+                "status",
+                "participations",
+                "timestamp",
+                "url",
+                "pinCode",
+                "country",
+                "devices"
+            ],
+            "properties": {
+                "publicId": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/PanelistStatus"
+                },
+                "participations": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "pinCode": {
+                    "type": "string"
+                },
+                "country": {
+                    "$ref": "#/definitions/NicestatsCountry"
+                },
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NicestatsDevice"
+                    }
+                }
+            }
+        },
+        "PanelistStatus": {
+            "type": "string",
+            "enum": [
+                "START",
+                "MYSTERY_GIFTS",
+                "TEASER",
+                "PRE_PROPOSAL_START",
+                "PROPOSAL",
+                "ACCEPTED",
+                "REFUSED",
+                "REMINDER",
+                "OUT",
+                "ACTIVE",
+                "INACTIVE",
+                "LOST",
+                "NOT_INIT",
+                "CANCELLED"
+            ]
+        },
+        "NicestatsCountry": {
+            "type": "string",
+            "enum": [
+                "AR",
+                "BO",
+                "BR",
+                "CL",
+                "CO",
+                "CR",
+                "DO",
+                "EC",
+                "ES",
+                "GT",
+                "HN",
+                "MX",
+                "NI",
+                "PA",
+                "PE",
+                "PR",
+                "PT",
+                "PY",
+                "SV",
+                "UY",
+                "VE"
+            ]
+        },
+        "NicestatsDevice": {
+            "type": "object",
+            "required": [
+                "publicId",
+                "kind",
+                "usageType",
+                "firstActivity",
+                "lastActivity",
+                "status",
+                "timestamp"
+            ],
+            "properties": {
+                "publicId": {
+                    "type": "string"
+                },
+                "kind": {
+                    "$ref": "#/definitions/DeviceKind"
+                },
+                "os": {
+                    "$ref": "#/definitions/DeviceOS"
+                },
+                "usageType": {
+                    "$ref": "#/definitions/UsageType"
+                },
+                "firstActivity": {
+                    "type": "integer"
+                },
+                "lastActivity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "$ref": "#/definitions/DeviceStatus"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "description": "Timestamp of the last version of this data"
+                }
+            }
+        },
+        "DeviceKind": {
+            "type": "string",
+            "enum": [
+                "DESKTOP",
+                "SMARTPHONE",
+                "TABLET"
+            ]
+        },
+        "DeviceOS": {
+            "type": "string",
+            "enum": [
+                "ANDROID",
+                "IOS"
+            ]
+        },
+        "UsageType": {
+            "type": "string",
+            "enum": [
+                "HOME",
+                "WORK"
+            ]
+        },
+        "DeviceStatus": {
+            "type": "string",
+            "enum": [
+                "ACTIVE",
+                "INACTIVE",
+                "LOST"
+            ]
+        },
+        "ActionResult": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/PanelistStatus"
+                }
+            }
+        },
+        "ShippingContacts": {
+            "type": "object",
+            "required": [
+                "shipping-contacts"
+            ],
+            "properties": {
+                "shipping-contacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ShippingContact"
+                    }
+                }
+            }
+        },
+        "ShippingContact": {
+            "type": "object",
+            "required": [
+                "name",
+                "surname1",
+                "region-levels",
+                "phones",
+                "address"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "surname1": {
+                    "type": "string"
+                },
+                "surname2": {
+                    "type": "string"
+                },
+                "region-levels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RegionLevel"
+                    }
+                },
+                "phones": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "identity-document": {
+                    "$ref": "#/definitions/IdentityDocument"
+                }
+            }
+        },
+        "RegionLevel": {
+            "type": "object",
+            "required": [
+                "level",
+                "region-value"
+            ],
+            "properties": {
+                "level": {
+                    "type": "integer"
+                },
+                "region-value": {
+                    "$ref": "#/definitions/RegionValue"
+                }
+            }
+        },
+        "RegionValue": {
+            "type": "object",
+            "required": [
+                "value-type",
+                "value"
+            ],
+            "properties": {
+                "value-type": {
+                    "type": "string",
+                    "enum": [
+                        "LIST",
+                        "FREE"
+                    ]
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "Address": {
+            "type": "object",
+            "required": [
+                "street"
+            ],
+            "properties": {
+                "street": {
+                    "type": "string"
+                }
+            }
+        },
+        "IdentityDocument": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "NIF",
+                        "CPF",
+                        "CEDULA"
+                    ]
+                }
+            }
+        },
+        "CampaignContent": {
+            "type": "object",
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "TutorPii": {
+            "type": "object",
+            "required": [
+                "name",
+                "email"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "TutorContact": {
+            "type": "object",
+            "required": [
+                "phone",
+                "availability"
+            ],
+            "properties": {
+                "phone": {
+                    "type": "string"
+                },
+                "availability": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TimeRange"
+                    }
+                }
+            }
+        },
+        "TimeRange": {
+            "type": "string",
+            "enum": [
+                "FROM_8_TO_12",
+                "FROM_12_TO_17",
+                "FROM_17_TO_21",
+                "FROM_21_TO_23"
+            ]
+        },
+        "Minor": {
+            "type": "object",
+            "required": [
+                "name",
+                "birth-date"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "birth-date": {
+                    "type": "number"
+                }
+            }
+        },
+        "AdTrackingCookies": {
+            "type": "object",
+            "required": [
+                "ad-tracking-cookies"
+            ],
+            "properties": {
+                "ad-tracking-cookies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AdTrackingCookie"
+                    }
+                }
+            }
+        },
+        "AdTrackingCookie": {
+            "type": "object",
+            "required": [
+                "name",
+                "domain",
+                "site"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "site": {
+                    "type": "string"
+                }
+            }
+        },
+        "AdTrackingLinks": {
+            "type": "object",
+            "required": [
+                "ad-tracking-links"
+            ],
+            "properties": {
+                "ad-tracking-links": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AdTrackingLink"
+                    }
+                }
+            }
+        },
+        "AdTrackingLink": {
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "SupportMessage": {
+            "type": "object",
+            "required": [
+                "subject",
+                "body"
+            ],
+            "properties": {
+                "subject": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                }
+            }
+        },
+        "FeedbackReply": {
+            "type": "object",
+            "required": [
+                "text",
+                "timestamp"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer",
+                    "format": "int64",
+                    "readOnly": true
+                },
+                "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "readOnly": true
+                }
+            }
+        },
+        "Feedback": {
+            "type": "object",
+            "required": [
+                "authorId",
+                "country",
+                "locale",
+                "score",
+                "nickname",
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Feedback unique identifier.",
+                    "readOnly": true,
+                    "format": "uuid"
+                },
+                "authorId": {
+                    "type": "string",
+                    "description": "Panelist unique identifier."
+                },
+                "authorType": {
+                    "type": "string",
+                    "enum": [
+                        "PANELIST",
+                        "MODERATOR"
+                    ],
+                    "readOnly": true
+                },
+                "incentiveId": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "createdAt": {
+                    "type": "integer",
+                    "format": "int64",
+                    "readOnly": true
+                },
+                "lastModified": {
+                    "type": "integer",
+                    "format": "int64",
+                    "readOnly": true
+                },
+                "state": {
+                    "type": "string",
+                    "enum": [
+                        "PENDING",
+                        "APPROVED"
+                    ],
+                    "readOnly": true
+                },
+                "nickname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30
+                },
+                "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                },
+                "score": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "country": {
+                    "type": "string"
+                },
+                "locale": {
+                    "$ref": "#/definitions/Locale"
+                },
+                "replies": {
+                    "type": "array",
+                    "readOnly": true,
+                    "items": {
+                        "$ref": "#/definitions/FeedbackReply"
+                    }
+                }
+            }
+        },
+        "FeedbackStats": {
+            "type": "object",
+            "properties": {
+                "incentiveId": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "histogram": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            }
+        }
+    }
+}
